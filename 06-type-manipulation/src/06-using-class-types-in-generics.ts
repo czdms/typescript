@@ -1,0 +1,38 @@
+//在泛型中使用类类型 ??????????????????????????????????????????????????????????????????????
+
+
+
+// function create<Type>(c: {new (): Type}): Type {
+//     return new c()
+// }
+
+class BeeKeeper {
+    hasMask: boolean = true
+}
+
+class ZooKeeper {
+    nametag: string = 'Mikle'
+}
+
+class Animal {
+    numLegs: number = 4
+}
+
+class Bee extends Animal {
+     keeper: BeeKeeper = new BeeKeeper()
+}
+// console.log(Bee.keeper)
+
+class Lion extends Animal {
+    keeper: ZooKeeper = new ZooKeeper()
+}
+
+
+//传入的泛型必须是Animal类型或Animal的实例
+function createInstance<A extends Animal>(c: new () => A): A {
+    return new c()
+}
+
+createInstance(Lion).keeper.nametag
+createInstance(Bee).keeper.hasMask
+// createInstance(BeeKeeper)
